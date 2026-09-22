@@ -4,23 +4,22 @@ import React from "react";
 import BookCard from "../shared/BookCard";
 import { IBook } from "@/types/books.type";
 
-const getBooks = async () => {
-
+// Fetch Books
+const getBooks = async (): Promise<IBook[]> => {
     try {
-        const response = await fetch
-            (`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`);
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`
+        );
 
         if (!response.ok) {
-            throw new Error("Failed to fetch books data");
+            throw new Error('Failed to fetch books data');
         }
 
-        const data = await response.json();
-        return data;
-    } catch(error){
-        console.log("error fetching" , error);
-        return [];  
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching books:', error);
+        return [];
     }
-    
 };
 
 const Books = async () => {

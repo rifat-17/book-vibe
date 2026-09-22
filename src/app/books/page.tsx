@@ -3,16 +3,18 @@ import { IBook } from '@/types/books.type';
 import BookCard from '../components/shared/BookCard';
 
 // Fetch Books
-const getBooks = async (): Promise<IBook[]> => {
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`
-    );
+const getBooks = async () => {
+    try {
 
-    if (!response.ok) {
-        throw new Error('Failed to fetch books data');
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`,
+        );
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching books data:", error);
+        return [];
     }
-
-    return response.json();
 };
 
 const Books = async () => {
@@ -42,7 +44,7 @@ const Books = async () => {
 
             {/* Books Grid */}
             <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
-                {booksData.map((book) => (
+                {booksData.map((book:IBook) => (
                     <BookCard
                         key={book.bookId}
                         book={book}
