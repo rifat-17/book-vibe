@@ -5,14 +5,22 @@ import BookCard from "../shared/BookCard";
 import { IBook } from "@/types/books.type";
 
 const getBooks = async () => {
-    const response = await fetch("http://localhost:3000/booksData.json");
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch books data");
+    try {
+        const response = await fetch
+            (`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`);
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch books data");
+        }
+
+        const data = await response.json();
+        return data;
+    } catch(error){
+        console.log("error fetching" , error);
+        return [];  
     }
-
-    const data = await response.json();
-    return data;
+    
 };
 
 const Books = async () => {
@@ -41,7 +49,7 @@ const Books = async () => {
             {/* Books Grid */}
             <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
 
-                {booksData.slice(0,9).map((book:IBook, ind: number) => {
+                {booksData.slice(0, 9).map((book: IBook, ind: number) => {
                     return <BookCard key={ind} book={book} />
                 })}
 
