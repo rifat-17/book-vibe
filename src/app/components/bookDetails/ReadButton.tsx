@@ -6,11 +6,12 @@ import { toast } from 'react-toastify';
 
 const ReadButton = ({ book }: { book: IBook }) => {
 
-    const {readBooks, setReadBooks} = useContext(BooksContext)
-
+    const { setReadBooks } = useContext(BooksContext) as {
+        setReadBooks: React.Dispatch<React.SetStateAction<IBook[]>>;
+    };
 
     const handleReadBook = () => {
-        setReadBooks([...readBooks, book]);
+        setReadBooks((prevReadBooks) => [...prevReadBooks, book]);
         toast.success(`You have read "${book.bookName}"`);
     }
 

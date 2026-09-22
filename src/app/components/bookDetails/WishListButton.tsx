@@ -6,7 +6,10 @@ import { IBook } from '@/types/books.type';
 import { toast } from 'react-toastify';
 
 const WishListButton = ({ book }: { book: IBook }) => {
-    const { wishList, setwishList } = useContext(BooksContext);
+    const { wishList, setwishList } = useContext(BooksContext) as {
+        wishList: IBook[];
+        setwishList: React.Dispatch<React.SetStateAction<IBook[]>>;
+    };
 
     const handleAddToWishList = () => {
         setwishList([...wishList, book]);

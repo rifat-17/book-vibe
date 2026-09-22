@@ -1,5 +1,5 @@
 
-import Image from "next/image";
+
 import React from "react";
 import BookCard from "../shared/BookCard";
 import { IBook } from "@/types/books.type";
@@ -27,7 +27,7 @@ const Books = async () => {
     const booksData = await getBooks();
 
     return (
-        <section className="container mx-auto my-[70px] px-4">
+        <section className="container mx-auto my-17.5 px-4">
 
             {/* Section Header */}
             <div className="mb-10 text-center">

@@ -51,9 +51,9 @@ const CustomColorLabel = (props: LabelProps) => {
 
 const ReadBooks = () => {
 
-    const { readBooks } = useContext(BooksContext);
+    const { readBooks } = useContext(BooksContext) as { readBooks: IBook[] };
 
-    const data = readBooks.map((book:IBook,index:number)=> {
+    const data = readBooks.map((book: IBook, index: number) => {
         return{
             name: book.bookName,
             uv: book.totalPages,

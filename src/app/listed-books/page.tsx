@@ -3,11 +3,14 @@ import React, { useContext, useState } from 'react';
 import { BooksContext } from '../context/BooksContext';
 
 import { IBook } from '@/types/books.type';
-import Image from 'next/image';
+
 import ListedBookCards from '../components/shared/ListedBookCards';
 
 const ListedBooks = () => {
-    const { readBooks, wishList } = useContext(BooksContext);
+    const { readBooks = [], wishList = [] } = useContext(BooksContext) as {
+        readBooks: IBook[];
+        wishList: IBook[];
+    };
     const [sortBy, setSortBy] = useState<"rating" | "pages" | "year">("rating");
 
     const sortBooks = (books: IBook[]) => {
@@ -56,7 +59,7 @@ const ListedBooks = () => {
                     name="my_tabs_3" className="tab"
                     aria-label={`Read Books (${readBooks.length})`} />
                 <div className="tab-content bg-base-100 
-                border-base-300 p-6 space-y-[25px]">
+                border-base-300 p-6 space-y-6.25">
 
                     {sortedReadBooks.length > 0 ? sortedReadBooks.map((book: IBook) => {
                         return <ListedBookCards key={book.bookId} book={book} />
